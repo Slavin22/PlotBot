@@ -22,6 +22,7 @@ access_token_secret = "QZnnI0g3IO5r9MLhpw9aVz0k5VOuCttM5w2bPduBR04NW"
 
 # Input twitter handle
 me = "@DataBootcampSJS"
+print("Saved my handle")
 
 # Define function
 def tweet_analyzer():
@@ -69,6 +70,8 @@ def tweet_analyzer():
                       "New Tweet Analysis: " + target_user + "(Thx " + requesting_user + "!!)")
     print("Successful tweet!")
     
+print("Defined function")
+
 # Run our infinitely-looped function
 while(True):
 
@@ -76,6 +79,8 @@ while(True):
     auth = tweepy.OAuthHandler(consumer_key, consumer_secret)
     auth.set_access_token(access_token, access_token_secret)
     api = tweepy.API(auth, parser=tweepy.parsers.JSONParser())
+
+    print("Authorized with Twitter")
     
     # Get list of already-analyzed accounts
     analyzed = []
@@ -86,17 +91,28 @@ while(True):
         except:
             continue
             
+    print("Logged analyzed accounts")
+
     # Check for new mentions
     new_mentions = api.search(q=me, since_id=check[0]["id"], result_type="recent")
     
-    # Loop through new mentions, running function if not previously analyzed
-    for mention in new_mentions:
-        try:
+
+    if len(new_mentions) > 0:
+    	print("New mention(s)")
+    	
+	    # Loop through new mentions, running function if not previously analyzed
+    	for mention in new_mentions["statuses"]:
             if mention["entities"]["user_mentions"][1]["screen_name"] not in analyzed:
                 target_user = mention["entities"]["user_mentions"][1]["screen_name"]
+                print("Target user: " + target_user)
                 requesting_user = mention["user"]["screen_name"]
+                print("Requesting user: " + requesting_user)
+                print("Ready to analyze")
                 tweet_analyzer()
-        except:
-            continue
+
+	#else:
+	#	print("No new mentions")
+	#	continue
+
     # Wait 5 minutes before checking for new mentions
     time.sleep(300)
