@@ -32,6 +32,8 @@ def tweet_analyzer():
     neutral = []
     negative = []
 
+    print("Created empty lists")
+
     # Loop through 25 pages of tweets (total 500 tweets)
     for x in range(25):
 
@@ -49,6 +51,8 @@ def tweet_analyzer():
 
     # Reverse the order of compound list
     compound = list(reversed(compound))
+
+    print("Reversed order")
     
     # Initialize plot + format the plot
     fig, ax = plt.subplots()
@@ -63,11 +67,13 @@ def tweet_analyzer():
 
     plt.xlim(-507,7)
     plt.ylim(-1.05,1.05)
-    plt.savefig("Resources/" + target_user + "_SentimentAnalysis.png")
+    plt.savefig("Resources/SentimentAnalysis.png")
+
+    print("Saved plot")
     
     # Post tweet with plot
-    api.update_with_media("Resources/" + target_user + "_SentimentAnalysis.png",
-                      "New Tweet Analysis: " + target_user + "(Thx " + requesting_user + "!!)")
+    api.update_with_media("Resources/SentimentAnalysis.png",
+                      "New Tweet Analysis: @" + target_user + " (Thx @" + requesting_user + "!!)")
     print("Successful tweet!")
     
 print("Defined function")
@@ -116,3 +122,8 @@ while(True):
 
     # Wait 5 minutes before checking for new mentions
     time.sleep(300)
+
+
+
+### Got error importing Matplotlib on Heroku
+### Figure out the Else indentation error just above time.sleep
