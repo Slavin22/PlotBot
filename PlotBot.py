@@ -7,6 +7,7 @@ import random
 import pandas as pandas
 import matplotlib.pyplot as plt
 import seaborn as sns
+import sys
 #from textblob import TextBlob (figure this out)
 import numpy as np
 
@@ -59,15 +60,16 @@ def tweet_analyzer():
     ax.plot(np.arange(-500,0), compound, '-o', alpha=.9, color="#5377AC", linewidth=0.5, label=target_user)
 
     # Format and print the plot
-    plt.legend(title="Tweets", loc='upper right', bbox_to_anchor=(1.22, 1))
+    plt.legend(title="Tweets", bbox_to_anchor=(1, 1), loc='upper left')
     plt.title("Sentiment Analysis of Tweets (" + datetime.datetime.now().strftime("%x") + ")")
     plt.xlabel("Tweets Ago")
     plt.ylabel("Tweet Polarity")
     plt.yticks(np.arange(-1,1.5,.5))
+    #plt.tight_layout()
 
     plt.xlim(-507,7)
     plt.ylim(-1.05,1.05)
-    plt.savefig("Resources/SentimentAnalysis.png")
+    plt.savefig("Resources/SentimentAnalysis.png", bbox_inches="tight")
 
     print("Saved plot")
     
@@ -103,7 +105,10 @@ while(True):
     new_mentions = api.search(q=me, since_id=check[0]["id"], result_type="recent")
     
 
-    if len(new_mentions) > 0:
+    if len(new_mentions["statuses"]) == 0:
+    	print("No new mentions")
+
+    else:
     	print("New mention(s)")
     	
 	    # Loop through new mentions, running function if not previously analyzed
@@ -115,15 +120,13 @@ while(True):
                 print("Requesting user: " + requesting_user)
                 print("Ready to analyze")
                 tweet_analyzer()
-
-	#else:
-	#	print("No new mentions")
-	#	continue
+            else:
+            	print("Account already analyzed")
 
     # Wait 5 minutes before checking for new mentions
     time.sleep(300)
 
 
-
-### Got error importing Matplotlib on Heroku
-### Figure out the Else indentation error just above time.sleep
+### Fix legend getting cut off (check if it worked)
+### Check for duplicate ignorance
+### Got error importing tkinter on Heroku
