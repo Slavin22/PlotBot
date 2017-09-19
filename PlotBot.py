@@ -1,4 +1,5 @@
 # Import Dependencies
+matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 import tweepy
 import time
