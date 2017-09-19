@@ -1,11 +1,11 @@
 # Import Dependencies
+import matplotlib.pyplot as plt
 import tweepy
 import time
 import datetime
 import json
 import random
 import pandas as pandas
-import matplotlib.pyplot as plt
 import seaborn as sns
 import sys
 #from textblob import TextBlob (figure this out)
