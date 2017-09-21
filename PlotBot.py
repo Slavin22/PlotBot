@@ -59,15 +59,15 @@ def tweet_analyzer():
     
     # Initialize plot + format the plot
     fig, ax = plt.subplots()
-    ax.plot(np.arange(-500,0), compound, '-o', alpha=.9, color="#5377AC", linewidth=0.5, label=target_user)
+    ax.plot(np.arange(-len(compound),0), compound, '-o', alpha=.9, color="#5377AC", linewidth=0.5, label=target_user)
 
     # Format and print the plot
+    plt.style.use("fivethirtyeight")
     plt.legend(title="Tweets", bbox_to_anchor=(1, 1), loc='upper left')
     plt.title("Sentiment Analysis of Tweets (" + datetime.datetime.now().strftime("%x") + ")")
     plt.xlabel("Tweets Ago")
     plt.ylabel("Tweet Polarity")
     plt.yticks(np.arange(-1,1.5,.5))
-    #plt.tight_layout()
 
     plt.xlim(-507,7)
     plt.ylim(-1.05,1.05)
@@ -105,7 +105,6 @@ while(True):
 
     # Check for new mentions
     new_mentions = api.search(q=me, since_id=check[0]["id"], result_type="recent")
-    
 
     if len(new_mentions["statuses"]) == 0:
     	print("No new mentions")
